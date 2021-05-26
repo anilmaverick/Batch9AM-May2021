@@ -1,0 +1,23 @@
+Kanban
+
+Kanban is a visual system for managing work as it moves through a process. Kanban visualizes both the process (the workflow) and the actual work passing through that process.
+
+- Kanban is one of the Lean tools designed to reduce the idle time in a production process. 
+- The main idea behind the Kanban system is to deliver what the process needs exactly when it needs it.
+   In Japanese, the word "Kan" means "visual" and "ban" means "card," so Kanban refers to visual cards.
+
+- Kanban is a popular framework used to implement agile software development. It requires real-time       communication of capacity and full   transparency of work.
+
+- Work items are represented visually on a kanban board, allowing team members to see the state of every piece of     work at any time
+
+The kanban board puts the whole process on one page or screen, so it’s easy to see who is working on what and where that falls in the project cycle. Team effort can be focused solely on the task that is needed now, so that work is done faster.
+
+ Kanban Board
+
+- A kanban board is an agile project management tool designed to help visualize work, limit work-in-progress, and      maximize efficiency (or flow). 
+- A kanban board helps make your work visible so you can show it ot others and keep everyone on the samepage
+
+-Teams enjoy using this system due to its ease of use, visual interface and ability to instantly see what everyone is working on. It also provides       visibility into task progress, and whether a specific task is holding up the project.
+
+
+
