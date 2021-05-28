@@ -1,0 +1,128 @@
+What is Operating System?
+
+It is an interface between user and the hardware
+
+As the hardware understands only binaries(1,0) and user can understand human readable language
+
+OS converts the human readable to binaries and binaries to human readable to have a perfect communication between both.
+The purpose of an OS is to function as a sort of foundation for other software to run within.  If the OS were not running on a computer, none of the other software would work.
+
+Over the many years of computing, there have been several Operating Systems available, but many people are only familiar with one or two – usually Windows ,when using desktop computers.  In the server world, there is currently another OS which you are more likely to find running, and that OS is Linux, widely accepted OS globally.
+
+Linux accounts for a huge share of the server Operating System market
+
+
+
+
+ Client Operating System:Windows10,Windows7,WindowsXP
+		         Ubuntu Desktop
+
+ ServerOperating System: RHEL7,Suse,BSD,Ubuntu,Unix
+		          Windows2016,Windows2012, Windows2008/R2
+
+Why many people were using Linux Operating System only for deploy and running Applications?
+	Linux= Security,Stable, Consistent Performance
+
+Unix
+-----
+
+ Single user 	----	Single Task	--ex:- DoS 
+ Single user	----	Multi Task	-- Windows
+ Multiuser		----	Multitask		-- UNIX
+
+  
+ Unix History
+ ---------------
+ [Source Code + Application]
+ 
+       Kernel + Application    ->O/s  -> 1969, AT& T Labs, Unix
+
+  FSF  = Free Software Foundation
+	Free software” means software that respects users' freedom and community. Roughly, it means that the users have the freedom to run, 	copy, distribute, study, change and improve the software
+  GNU = Generally Not Unix
+	The GNU project was created to produce a free software alternative to Unix.
+	Its goal is to give computer users freedom and control in their use of their computers and computing devices by collaboratively developing 	and publishing software that gives everyone the rights to freely run the software, copy and distribute it, study it, and modify it. GNU software 	grants these rights in its license.
+
+ 1984 --- HP      	  ----- HP-UX
+ 1984 ---Apple  	  ----- MacOS
+ 1986 ---IBM              ----- AIX
+ 1991 ---Sun/Oracle ----- SunSolaris
+
+ Note: The above all operating systems are Hardware dependent i.e these Os will work only on the relevant hardware, but 
+            it will not support other software & hardwares
+
+
+
+   FSF---GNU
+     1991 --- Helsinky University during summer holidays,  Linus Torvalds has developed the linux i.e [GNU Kernel + Software]
+
+
+
+
+  Later other Linux Distributions introduced in the market are:
+	Novell  ----Suse
+	REDHAT --- RHL/RHEL,Centos
+	OEL, Fedora,Debian,Mint,Puppy,Kali*, BoSS,PowerLinux,Ubuntu
+=====================================
+Features of Linux
+--------------------
+
+Portable =    Portability means software's can works on different types of hardware in same way. 
+                   Linux kernel and application programs supports their installation of any kind of hardware 
+                   platform.
+Opensource= Linux source code is freely available and it is community based development project.
+
+Multi-user= Linux is a multiuser system means multiple users can access system resources.
+
+Multiprogramming=Linux is a multiprogramming system means multiple applications can run at same 
+                                    time.
+
+Shell= Linux provides a special interpreter program which can be used to execute commands of the 
+             operating system.
+
+Security=Linux provides user security using authentication features like password protection/controlled
+                access to specified files/encryption of data.
+
+
+ Why we use Linux?
+	- Open Source
+	- Most of the software's are freely available
+
+ Where we can use Linux?
+
+	- Linux is mostly used in portable devices.
+	- Home Automation
+	- Artificial Intelligence
+	- Machine Learning
+	- Penetration Testing (web applications..security testing..cyber attacks)
+	- Developing New Software's and Tools
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
