@@ -1,0 +1,51 @@
+YUM (Yellowdog Updater Modified) is an open source command-line as well as graphical based package management tool for RPM (RedHat Package Manager) based Linux systems. 
+  
+  -  Yellowdog Updater Modifier (yum) is an RPM based package manager which is used to
+       install and update packages in various Linux distributions including CentOS, RHEL and 
+      Fedora.
+  -  It allows users and system administrator to easily install, update, remove or 
+      search software   packages on a systems.
+  - YUM uses numerous third party repositories to install packages automatically by resolving 
+     their dependencies issues.
+	
+     #apt-get install httpd(ubuntu)
+
+  1. Install the packages using yum
+       If you want to install packages automatically without asking any confirmation, 
+       use option -y
+ 
+	[root@localhost ~]# yum update  -y
+	[root@localhost ~]# yum install httpd
+		or
+	[root@localhost ~]# yum install httpd -y
+
+ 2.  with the ‘check-update’ argument which will check in with our enabled repositories for any updates 
+       that  may be available for packages that we have 
+	[root@localhost ~]# yum check-update
+
+ 3. To update any package 
+	[root@localhost ~]#yum update <package name>
+	[root@localhost ~]#yum update mysql
+
+ 4. To list function to search for the specific package with name.
+	[root@localhost home]# yum list httpd
+
+
+ 5. function to search all the available packages to match the name of the package you specified. 
+	[root@localhost home]# yum search mysql
+
+ 6.  to know information of a package before installing it.
+	[root@localhost home]# yum info firefox
+
+
+
+
+
+
+
+
+
+
+Anaconda is the installation program used by Fedora, Red Hat Enterprise Linux and some other distributions.
+	
+

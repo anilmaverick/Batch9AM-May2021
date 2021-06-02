@@ -1,0 +1,10 @@
+
+	0  = No permission
+	1  = execute
+	2  = write
+	3  = write, execute
+	4  = read
+	5  = read, execute	
+	6  = read,write
+	7  = read,write,execute
+

@@ -1,0 +1,60 @@
+Tar Commands
+
+Linux “tar” stands for tape archive, which is used by large number of Linux/Unix system administrators to deal with tape drives backup.
+The tar command used to rip a collection of files and directories into highly compressed archive file commonly called tarball or tar, gzip and bzip in Linux.
+tar is most widely used command to create compressed archive files and that can be moved easily from one disk to another disk or machine to machine.
+Creating a tar Archive file:
+ eg: tar –cvf  techlog.tar  /home/cubeipl/
+		c – Creates a new .tar archive file.
+		v – Verbosely show the .tar file progress.
+		f – File name type of the archive file
+
+
+Creating a tar Archive file
+		eg: tar –cvf myFiles.tar   /home/cubeipl/11/
+
+Create a compressed gzip archive file we use the option as z.
+		eg: tar cvzf myFile22.tar.gz    /home/cubeipl/22
+	 Note : tar.gz and tgz both are  similar
+
+Create tar.bz2 Archive File
+	 bz2 feature compress and create archive file less than the size of the gzip. The bz2 compression takes more time to compress and decompress files as compared to gzip which takes less time. 
+	 To create highly compressed tar file we use option as j.
+	 eg: tar cvfj myFiles33.tar.bz2   /home/cubeipl/33/
+	 Note: tar.bz2 and tbz is similar as tb2
+	
+
+Untar tar Archive File
+untar or extract a tar file, just issue following command using option x (extract).
+	eg: tar –xvf myFiles11.tar
+
+Untar files in specified Directory
+	eg: tar -xvf myFiles11.tar -C /home/cubeipl/myTrainings/
+
+Uncompress tar.gz Archive File
+	eg: tar –xvf myFiles33.tar.gz
+
+Uncompress tar.bz2 Archive File
+	eg: tar –xvf myFiles44.tar.bz2
+
+List Content of tar Archive File
+	eg: tar -tvf myFiles11.tar
+
+
+	Tar Usage and Options
+		c – create a archive file.
+		x – extract a archive file.
+		v – show the progress of archive file.
+		f – filename of archive file.
+		t – viewing content of archive file.
+		j – filter archive through bzip2.
+		z – filter archive through gzip.
+		W – Verify a archive file.
+		wildcards – Specify patterns in unix tar command.
+
+Tips and Tricks in Using Linux Command Line
+You can use clear command to clear the terminal if it gets filled up with too many commands!
+TAB can be used to fill up in Terminal. For example, You just need to type “cd Doc” and then TAB and the terminal fills the rest up and makes it “cd Documents”.
+Ctrl+C can be used to stop any command in terminal safely. If it doesn’t stop with that, then Ctrl+Z can be used to force stop it.
+You can exit from the terminal by using the exit command.
+You can power off or reboot the computer by using the command sudo halt and sudo reboot.
