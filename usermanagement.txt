@@ -1,0 +1,244 @@
+ User Management
+-------------------
+               $= usermode
+
+ Important points related to users:
+ --------------------------------------
+	-Users and groups are used to control access to files and resources
+	-Users login to the system by supplying their username and password
+	-Every file on the system is owned by a user and associated with a group
+	-Every process has an owner and group affiliation and can only access the resources its owner or 
+                group can access.
+	-Users cannot read,write or execute each other's files without permission.	
+
+In Linux, user is one who uses the system
+ users on a system are identified by a username and a userid.
+
+Types of users are:
+
+ 1. Super user or root user
+	- super user or the root user is the most powerful user. he is the administrator user.
+
+ 2. System user
+	- System users are the users created by the software or applications. For example if we install Apache
+                    it will created a user apache.
+	    These kind of users are called system users.
+ 3. Normal user
+	- Normal users are the users created by root user. They are normal users like karthik, rahul etc. 
+                   Only the root users has the permission to create or remove the user.
+
+
+
+ Whenever user is created in Linux things created by default are:
+ ===================================
+	- Home directory is created(/home/<username dir>)
+	- A mail box is created (/var/spool/mail)
+	- unique UID & GID are given to user(/etc/passwd)
+
+-  Whenever a user is created by default a private group is created with the same name.
+    for example, if  karthik user is created , by default  with the same name 'karthik' a private group is created in (/etc/group)
+-  RedHat Linux uses a user private group (UPG) scheme. 
+-  When a new user account is added, a new user private group is also created. 
+   The user private group has the same name as the user, and the new user is the only member of this group.
+-  Both users and groups use shadow passwords. Passwords are hashed and stored in different files,( /etc/shadow)
+
+
+1.  by default username is in /home/username
+2. The full account information is stored in the /etc/passwd file.
+    [username]:[x]:[UID]:[GID]:[Comment]:[Home directory]:[Default shell]
+
+eg: AshokIT:x:1006:1006::/home/ashokit:/bin/bash
+       myuser1:x:1001:1001:HRM:/home/myuser1:/bin/bash
+
+   username = AshokIT
+    x = account is protected by a shadowed password (in /etc/shadow), which is needed to logon as [username].
+          Indicates that shadow passwords are used .
+   [UID]= UID, these begin with 1000 and increment by 1 for each newly added user. UIDs below 1000 are reserved for system use.   
+   GID = GID of the user’s primary group. These begin with 1000 and increment by 1 for each new group. 
+            Users can belong to more than one group.            
+[Home directory] = Home directory for this user 
+[Default shell]= the shell that will be made available to this user when he or she logins the system.
+=============================================================
+ Creating a user
+ -----------------
+  syntax:
+	#useradd <username> <options>
+	 or 
+	#adduser <options> <username>
+	
+Options are:
+	 -u 	userid
+	 -G	Secondary group id
+	 -g 	primary group id
+	 -d	home directory
+	 -c 	comment
+	 -s	shell
+
+	
+   Example:
+	#useradd -u 1050 -c MGR -s /bin/bash myuser2
+
+
+  Assigning the password to the user
+  --------------------------------------
+    #passwd <username>
+     # passwd myuser3
+
+
+To display password status information of a user , use -S option in passwd command.
+
+[root@localhost ~]# passwd -S <username>
+[root@localhost ~]# passwd -S advith
+
+
+advith PS 2020-05-20 0 99999 7 -1 (Password set, MD5 crypt.)
+
+username=advith
+PS=password status
+	(PS=Password Set,LK=Password locked, NP=No Password)
+2020-05-20 = when the password was changed
+0=minimum age
+99999 =maximum age
+ 7=warning period
+-1=inactivity period for the password
+
+
+
+
+
+Removing Password of a User using -d option
+[root@localhost ~]# passwd -d <username>
+[root@localhost ~]# passwd -d advith
+Removing password for user advith.
+passwd: Success
+
+
+[root@localhost ~]# passwd -S <username>
+[root@localhost ~]# passwd -S advith
+advith NP 2020-05-20 0 99999 7 -1 (Empty password.)
+
+Set Password Expiry Immediately
+Use ‘-e’ option in passwd command to expire user’s password immediately , this will force the user to change the password in the next login.
+
+[root@localhost ~]# passwd -e <username>
+[root@localhost ~]# passwd -e advith
+Expiring password for user advith.
+passwd: Success
+
+
+Set Minimum Days to Change Password using -n option
+<username> user has to change the password in 90 days. A value of zero shows that user can change it’s password in any time.
+
+[root@localhost ~]# passwd -n 15 <username>
+[root@localhost ~]# passwd -n 15 advith
+Adjusting aging data for user advith.
+passwd: Success
+[root@localhost ~]# passwd -S advith
+advith PS 2020-05-20 15 99999 7 -1 (Password set, MD5 crypt.)
+
+
+Set Warning days before password expire using -w option
+
+[root@localhost ~]# passwd -w 10 <username>
+[root@localhost ~]# passwd -w 10 advith
+Adjusting aging data for user advith.
+passwd: Success
+[root@localhost ~]# passwd -S advith
+advith PS 2020-05-20 15 99999 10 -1 (Password set, MD5 crypt.)
+
+
+
+
+
+   Deleting a user
+   ----------------
+ #userdel <username>
+
+   to delete the user with its home directory and mailbox use
+# userdel -r myuser2
+
+
+
+
+==============================================
+To Check the Encrypted or Shadow password of users
+=================================
+
+[root@localhost admin]# cat /etc/shadow | grep myuser2
+myuser2:$1$DHxO9Lxz$blsGq4RUTF1DUvQZFkPqg0:18107:0:99999:7:::
+
+ ==============================================
+Modifying the user's attribute
+
+  After creating a user if we need to modify the attributes of users like changing uid,secondary group id or adding a comment , locking or unlocking
+
+ syntax: # usermod <options> <username>
+ Options are:
+      -l 	to change login name
+      -L 	to LOCK account
+      -U 	to UNLOCK account
+
+ ex:
+    #usermod  -l newname oldname
+
+    # usermod -L <username>
+    # usermod -U <username>
+
+ Note: When an account is locked it will show !(Exclamation mark) in /etc/shadow file.
+ account lock/unlock details can also be checked by "#passwd -S <username>" command
+
+-------------------------------------------------
+Send the mail from one logged in user to the other user in linux
+ Open two tabs for the two users
+
+ Step1:
+	 Logged in user
+	[root@localhost classroom]# mail -s testmail testuser
+	Hi 
+		This is user admin 
+		sending an test mail to you.
+	(ctrl+d)
+
+Step2:
+	(Other user)
+	to check the mail box
+	[testuser@localhost classroom]$ mail
+
+	Heirloom Mail version 12.5 7/5/10.  Type ? for help.
+	"/var/mail/testuser": 1 message 1 new
+	>N  1 root                  Thu Jan  9 10:50  20/667   "testmail"
+	& 
+	Message  1:
+	From root@localhost.localdomain  Thu Jan  9 10:50:04 2020
+	Return-Path: <root@localhosest.localdomain>
+	X-Original-To: testuser
+	Delivered-To: testuser@localhost.localdomain
+	Date: Thu, 09 Jan 2020 10:50:04 -0800
+	To: testuser@localhost.localdomain
+	Subject: testmail
+	User-Agent: Heirloom mailx 12.5 7/5/10
+	Content-Type: text/plain; charset=us-ascii
+	From: root@localhost.localdomain (root)
+	Status: R
+
+	Hi 
+	This is user admin 
+	sending an test mail to you.
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
