@@ -1,0 +1,316 @@
+Search for a string “linux” in a file using  grep command in unix
+
+This is the basic usage of grep command. It searches for the given string in the specified file.
+
+	#grep “linux” index.html
+
+Insensitive case search with grep -i
+
+The below grep command searches for the words like “LINUX”, “Linux”, “linux” case insensitively.
+
+	#grep -i “linux” index.html
+
+Searching for a string in multiple files.
+
+This command will search for "linux" string in multiple files at a time. It searches in all files with file1.txt, file2.txt and along with different extensions too like file1.html, file2.php and so on.
+
+	#grep “linux” file*.*
+
+Specifying the search string as a regular expression pattern.
+
+It is a very powerful feature and can use as a regular expression with much effectively. 
+it searches for all the pattern that starts with “fast” and ends with “host” with anything in-between. i.e 
+To search “fast[anything in-between]host” in index.html file.
+
+	#grep “fast.*host” index.html
+
+
+
+Displaying the line numbers.
+
+You can use this grep command to display the line number which contains the matched string in a file using the -n option
+
+	#grep -n “word*” file.txt
+
+6. Print the line excluding the pattern using -v option
+
+List all the lines of the file /etc/passwd that does not contain specific word “string”.
+
+	#grep -v linux /etc/passwd
+
+
+Linux process commands
+------------------------------
+
+ 1. to display hidden files
+	[root@localhost admin]# ls -la
+2.tree
+   Show files and directories in a tree starting from root
+	[root@localhost admin]# tree
+
+3. top 
+top command gives you information on the processes that currently exist.
+	[root@localhost admin]# top
+4. htop(ubuntu)
+	It  is similar to top, but allows you to scroll vertically and
+       horizontally, so you can see all the processes running on  the
+       system,  along with their full command lines, as well as view-
+       ing them as a process tree, selecting multiple  processes  and
+       acting on them all at once.
+	(Note: it works only in few distributions of linux)
+	[root@localhost admin]# htop
+
+
+5.ps
+   Use the ps command to list running processes (top and htop list all processes whether active or inactive).
+	[root@localhost admin]# ps
+
+6.pstree
+     A step up from the simple ps command, pstree is used to display a tree diagram of processes     
+     that also shows relationships that exist between them.
+	[root@localhost admin]# pstree
+7.kill
+              As its name suggests, kill can be used to terminate a process with extreme prejudice.
+	[root@localhost admin]# kill -9 <processid>
+	[root@localhost admin]# kill -9 3648
+				
+
+=============================================================
+
+nslookup
+
+A network utility program used to obtain information about Internet servers. 
+As its name suggests, the utility finds name server information for domains by querying DNS.
+Nslookup (stands for “Name Server Lookup”) is a useful command for getting information from DNS server. It is a network administration tool for querying the Domain Name System (DNS) to obtain domain name or IP address mapping or any other specific DNS record. It is also used to troubleshoot DNS related problems.
+
+ [root@localhost home]# nslookup www.google.com
+
+==================================================
+ Network commands
+
+1.PING 
+	PING(Packet Internet Groper) command sends packet requests to the address you specify to test the connectivity between 2 nodes
+	ping IP/hostname
+	[root@localhost admin]# ping www.google.com
+
+
+2.ifconfig
+	Ifconfig  utility is used to configure network interface parameters. 
+  	Mostly we use this command to check the IP address assigned to the system
+	
+	[root@localhost admin]#ifconfig -a
+
+
+3.route
+	route command is the tool used to display routeing table
+
+	[root@localhost admin]# route
+4. ssh
+    Connect to host as user
+
+[root@localhost admin]# ssh myuser4@localhost
+
+5. 
+	The w command lists the currently logged in users.
+	[root@localhost classroom]# w
+
+6. uname
+
+You can obtain some system information regarding the Linux computer you’re working on with the uname command.
+
+    Use the -a (all) option to see everything.
+    Use the -s (kernel name) option to see the type of kernel.
+    Use the -r (kernel release) option to see the kernel release.
+
+[root@localhost classroom]# uname -s
+
+8. history
+
+      When you’ve been using Linux for a certain period of time, you’ll quickly notice that you can run hundreds of  commands every day. 
+      As such, running history command is particularly useful if you want to review the commands you’ve entered before.
+
+   [root@localhost classroom]# history
+
+	To show the limited number of commands that executed previously as follows:
+	[root@localhost classroom]# history 10	
+
+9.  wget command
+
+     this command is very much useful — you can even download files from the internet with the help of the 
+    wget command. To do so, simply type wget followed by the download link.
+	[root@localhost classroom]# wget <url>
+
+	[root@localhost classroom]# wget https://packages.endpoint.com/rhel/7/os/x86_64/git-2.24.1-1.ep7.x86_64.rpm
+
+
+10.  ifconfig
+
+	ifconfig is used to configure the kernel-resident network interfaces. 
+	It is used at boot time to set up interfaces as necessary. 
+
+	ifconfig(interface configuration) command is used to configure the kernel-resident network interfaces. 
+	It is used at the boot time to set up the interfaces as necessary. After that, it is usually used when needed 	during debugging or when you need system tuning. Also, this command is used to assign the IP address 	and netmask to an interface or to enable or disable a given interface.
+
+	[root@localhost ~]# ifconfig
+	
+	Display details of All interfaces including disabled interfaces using “-a” argument.
+	[root@localhost ~]# ifconfig -a
+	Display a short list, instead of details.
+	[root@localhost ~]# ifconfig -s
+	
+
+11. netstat
+	netstat command displays various network related information such as network connections, 
+	routing tables, interface statistics, multicast memberships etc..,
+	
+	[root@localhost ~]# netstat 
+	
+	 To list out all the TCP port numbers
+
+		[root@localhost ~]# netstat -at
+	
+12. View files more or less
+	commands such as ps, you know that file listings can be long, and a lot of the information flows right off the screen. Sure, you can page up 	or scroll, but it's not very efficient.
+	The commands more and less limit the amount of data you see to one "page." 
+	
+	[root@localhost ~]#more /etc/passwd
+
+	[root@localhost ~]# cat /etc/passwd | more
+
+	[root@localhost ~]#ps -ef | more
+
+	[root@localhost ~]# less /etc/passwd
+
+	[root@localhost ~]# cat /etc/passwd | less
+
+	[root@localhost ~]# ps -ef | less
+
+13. sed
+
+         - Sed is a text-editor that can perform editing operations in a non-interactive way. 
+         - The sed command gets its input from standard input or a file to perform the editing operation on a file. 	
+         - Sed is a very powerful utility and you can do a lot of file manipulations using sed.
+	To replace a text in a file by searching it in a file, you can use the sed command with a substitute “s” flag to search for the specific pattern 	               and change it.
+
+	[root@localhost classroom]# sed 's/supercomputers/supersystems/g' linux.txt
+
+14. free
+	free command which displays the total amount of free space available along with the amount of memory used and swap memory in the 		system, and also the buffers used by the kernel.
+
+	[root@localhost classroom]# free
+
+
+		 total           used           free         shared    buffers     cached
+	Mem:       1003432     924828      78604       3924          0          157340
+	-/+ buffers/cache:     767488     235944
+	Swap:      2097148      30276    2066872
+
+
+	When no option is used then free command produces the columnar output as shown above where column:
+
+    	total = displays the total installed memory (MemTotal and SwapTotal e present in /proc/meminfo).
+      	 used= displays the used memory.
+    	free  = displays the unused memory.
+    	shared= displays the memory used by tmpfs
+    	buffers= displays the memory used by kernel buffers.
+    	cache= displays the memory used by the page cache and slabs
+    	
+	Options for free command
+
+    		-b, – -bytes :It displays the memory in bytes.
+   		 -k, – -kilo :It displays the amount of memory in kilobytes(default).
+    		-m, – -mega :It displays the amount of memory in megabytes.
+   		 -g, – -giga :It displays the amount of memory in gigabytes
+
+	[root@localhost classroom]# free -m
+
+ 15. curl
+	curl is a command-line tool to transfer data to or from a server, using any of the supported protocols (HTTP, FTP, IMAP, POP3, SCP, SFTP, 	SMTP, TFTP, TELNET, LDAP or FILE). 
+	curl is a command-line utility for transferring data from a server.
+	With curl, you can download or upload data using one of the supported protocols including HTTP, HTTPS, SCP , SFTP , and FTP .
+	This command is powered by Libcurl. 
+	This tool is preferred for automation since it is designed to work without user interaction. 
+	It can transfer multiple file at once.
+	It uses URL syntax to transfer data to and from servers. 
+	curl is a widely used because of its ability to be flexible and complete complex tasks.
+
+	
+
+	to check curl version
+               ---------------------------
+	[root@localhost classroom]# curl --version
+
+	To download a file
+               -------------------------
+
+	-o : saves the downloaded file on the local machine with the name provided in the parameters.
+	[root@localhost classroom]# curl -O http://releases.ubuntu.com/18.04/ubuntu-18.04-live-server-amd64.iso
+
+	[root@localhost classroom]#curl -O  https://github.com/apache/maven/blob/master/pom.xml/classroom-pom.zip
+
+	needs to save the file in other location
+[root@localhost classroom]#curl -o /home/newproject.tar.bz2  https://github.com/apache/maven/blob/master/pom.xml/classroom-	pom.tar.bz2
+
+	Download multiples in the current path
+	[root@localhost classroom]# curl -O https://github.com/apache/maven/blob/master/pom.xml -O https://github.com/apache/maven-release
+
+
+
+16. gzip
+	The gzip is a useful command when it comes to file management. 
+	It is a file compressing tool with its primary goal is to reduce file size. 
+	The gzip command by default deletes the original file and saves only the new compressed file 
+	which is resulted from the command.
+
+	[root@localhost classroom]# gzip linux.txt
+
+	Unzipping gz File
+
+	On Linux and macOS, you can decompress a .gz file using the gzip utility. 
+	[root@localhost classroom]# gzip -d linux.txt.gz
+
+
+
+	
+
+
+
+
+		
+
+SCP=Secure Copy Protocol
+	 securely transferring computer files between a local host and a remote host or between two remote hosts.
+
+SFTP= Secure File Transfer Protocol
+	 Secure File Transfer Protocol (SFTP) is a file protocol for transferring large files over the web.	
+
+IMAP=IMAP is the abbreviation for Internet Message Access Protocol. 
+	MAP offers you the possibility to directly manage your emails on the email server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
