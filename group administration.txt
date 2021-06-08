@@ -1,0 +1,90 @@
+
+ Group Administration
+	
+	- Linux uses groups as a way to organize users. 
+ 	- users are assigned to groups with unique group ID numbers (GID)
+	- The group name and GID are stored in /etc/group
+	- Each user is given their own private group
+	- All users in a group can share files that belong to the group.	
+	- Each user is a member of at least one group called a primary group.
+
+
+
+     Creating a group with default options:
+      ______________________________
+	
+     Syntax: 
+	#groupadd <name of the group>
+	#groupadd myadmin
+
+ 1.Create a group with user specified groupid (GID)
+      #groupadd <option> <name for the group>
+	#groupadd -g 1050 mygroup
+
+2. Modifying the properties of a group
+    # groupmod <option> <arguments> <groupname>
+    Options are
+	-g = to change the groupid
+	-o = to override the previous assigned , if it matches with the new one.
+	-n = to change the group name
+
+    Changing the GID of the group
+      #groupmod -g 1100 -o <oldgroupname>
+
+      # groupmod -g 1100 -o mygroup
+
+4. Changing the name of the group
+     #groupmod -n <newgroupname> <oldgroupname>
+     # groupmod -n mygroup mygrp
+     [root@localhost home]# groupmod -n apecgroup mygroup
+
+
+5. Adding or Removing the members from a group
+
+   # gpasswd <option> <arguments> <groupname>
+  
+    Options:
+	-M = For adding Multiple users to a group
+	-a = for Adding a single user to a group
+	-A = for adding a group Administrator
+	-d = removing a user from a group
+
+   #syntax: gpasswd -M <addusers> <groupname>
+  #gpasswd -M user1, user2, user3 mygroup
+
+  6. Adding a single user to the group
+       #gpasswd -a u4 mygroup
+
+  7. making a user as an administrator of the group
+	#gpasswd -A u1 mygroup
+
+  8. Removing a user from the group
+       #gpasswd -d u2 mygroup
+
+ 9. Removing a group
+     #groupdel  <groupname>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

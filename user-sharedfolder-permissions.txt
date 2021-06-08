@@ -1,0 +1,53 @@
+
+ Create 2 users and place these 2 users under the same group.
+ Create one sharedFolder for the project, where these two users can access the files.
+
+
+1. create two users
+	[root@localhost home]# sudo useradd teamuser1
+	[root@localhost home]# passwd teamuser1
+         another user
+  	[root@localhost home]# sudo useradd teamuser2
+	[root@localhost home]# passwd teamuser2
+
+2.  creating common group using groupadd command
+	[root@localhost home]# groupadd telecom-project
+	[root@localhost home]#ls -l
+
+3.  create shared directory and change group for it using chgrp command.
+	[root@localhost home]# mkdir /home/sharedRepo
+	[root@localhost home]# sudo chgrp <groupname> /home/sharedRepo
+	[root@localhost home]# sudo chgrp telecom-project /home/sharedRepo
+
+4. After this we need to change appropriate permissions for the shared directory using chmod command. 
+	[root@localhost home]# sudo chmod 770 /home/sharedRepo/
+	Here 770 permission means:
+
+	7 – owner has rwx permissions.
+	7 – directory groups have rwx permissions.
+	0 – others have no permissions.
+
+5. We also need to set the SGID(Set-Group-ID) bit for the sharedFolder directory, now all newly created subdirectories/files under sharedFolder will inherit sharedFolder permissions. 
+	[root@localhost home]# sudo chmod +s /home/sharedRepo/
+
+6.we add users to the common group with whom to share the folder 
+
+	[root@localhost home]# usermod -a -G telecom-project teamuser1
+	[root@localhost home]# usermod -a -G telecom-project teamuser2
+
+7.Now /home/sharedFolder is accessible to both the users, but other users can't access these sharedFolder.
+
+
+
+
+	
+
+	
+	
+
+
+ 	
+
+		
+ 
+	
