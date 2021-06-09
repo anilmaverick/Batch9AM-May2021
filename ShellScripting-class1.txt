@@ -1,0 +1,124 @@
+
+  Shell Scripting
+   ------
+           Shell is a command language interpreter that executes commands read from the standard
+           input device i.e., keyboard or from a file.
+	-Shell scripting is writing a series of command for the shell to execute.
+                 - It can combine lengthy and repetitive sequences of commands into a single and simple script, 
+	   which can be stored and executed anytime. With this we can reduce the effort
+	    required by the end user.
+	-Shell accept your instruction or commands in human readable language(english) and 
+ 	  translate it into computers's native binary language.
+
+   Why we need shell scripting?
+	-It can automate the daily tasks.
+	-System Administration part can be also automated.
+	-Shell script can take input from user, file and output them on screen.
+
+    Limitations
+     ------------
+	-Slow execution speed.
+	-Compatibility problems between different platforms.
+	-A new process launched for almost every shell command when executed.
+
+  How to write the shellscript
+  -------------------------------
+  	-To write shell script we can use any of the linux's text editors such as vi or vim, nano,emacs etc., 
+	  we can use cat command as well.
+	-But it is preferable to use vi or vim editor as it is widely used in all linux flavours and 
+	  known by many Linux admins.
+
+
+
+to know the current shell
+#echo $0
+
+to know the default shell
+#echo $SHELL
+
+To know the path of the bash
+#which bash
+
+to know the other shells installed in your OS
+
+#cat /etc/shells
+
+
+   BourneAGain SHell= bash
+
+   !/bin/bash   = Shebang Command
+
+
+
+    B shell – /bin/sh – This is the default Unix shell for many Unix operating systems.
+    C shell – /bin/csh was designed to provide the interactive features lacking in B shell such as job control and aliasing.
+    K shell – /bin/ksh – was developed by David Korn and has features of both B shell and C shell along with some  additional features.
+    BASH – the Bourne again shell was created during GNU project. It is based on B shell language and has features of C and K shells.
+    tcsh – is the default shell of FreeBSD and its successors. It is a C shell with programmable command line compilation, command-line editing, 
+              and a few other features.
+
+1. To Check the default shells of the users
+
+	  [admin@localhost mail]# more /etc/passwd
+
+2. To change the default shell of users
+	[root@localhost mail]# usermod -s /bin/bash vamshi
+
+          -check by login with user credentials
+          -tail /etc/passwd | grep <username>
+
+3. [vamshi@localhost mail]$ echo $SHELL
+      /bin/bash
+	
+
+
+
+Only Root user can change the shells , but as a user if you want to change the 
+shellname of your username.
+
+[vamshi@localhost mail]$ chsh
+Changing shell for vamshi.
+New shell [/bin/bash]: /bin/csh 
+Password: 
+Shell changed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
