@@ -1,0 +1,13 @@
+#!/bin/bash
+#Program to find the sum, the average and the product of the four integers entered
+#author:trainer
+
+echo “Enter four integers with space between”
+read a b c d
+Sum=`expr $a + $b + $c + $d`
+#Avg=`expr $Sum/4`
+Avg=`expr $((Sum/4))`
+product=`expr $a \* $b \* $c \* $d`
+echo Sum = $Sum
+echo Average = $Avg
+echo Product = $product

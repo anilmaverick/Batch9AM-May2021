@@ -1,0 +1,12 @@
+ITIL
+Agile Scrum
+HR Manager
+Resource Manager
+Project Manager
+Marketing
+Sales
+IT Operations
+Designer
+Developer
+Quality Testing
+
