@@ -1,0 +1,57 @@
+Prerequisites
+
+    A system running CentOS 7
+    Access to a user account with root privileges
+1.If you’re working on a local machine, log in to the system with administrator credentials
+
+	[root@node1 home]#
+
+2.Create a New Sudo User
+
+To add a new sudo user, open the terminal window and enter the command:
+
+	[root@node1 home]# useradd prudvi
+	set the passwd to the user
+	[root@node1 home]# passwd prudvi
+
+3. Verify the Wheel Group is Enabled
+
+	Your CentOS 7 installation may or may not have the wheel group enabled.
+
+	Open the configuration file by entering the command:
+
+	[root@node1 home]#visudo
+
+	Scroll through the configuration file until you see the following entry:
+
+	## Allows people in group wheel to run all commands
+
+	# %wheel        ALL=(ALL)       ALL
+
+	if the second line begins with the # sign, it has been disabled and marked as a comment. Just delete the # sign at the beginning of the 	second line so it looks like the following:
+
+	%wheel        ALL=(ALL)       ALL
+
+	Then save the file and exit the editor.
+
+4. Add User to Group
+	The easiest way to grant sudo privileges to a user on CentOS is to add the user to the “wheel” group. 
+	Members of this group are able to run all commands via sudo and prompted to authenticate themselves with their password when using 	sudo
+
+	To add a user to the wheel group, use the command:
+
+	[root@node1 home]#usermod –aG wheel prudvi
+
+5. Switch to the Sudo User
+	
+	[root@node1 home]#su - prudvi
+
+
+
+6. To test the sudo access, run the whoami command:
+
+sudo whoami
+
+You will be prompted to enter the password. If the user have sudo access, the command will print “root”:
+
+root
