@@ -1,0 +1,71 @@
+1.To Install Git , download from the following url
+	https://git-scm.com/download
+
+2: Download and install git
+	https://git-scm.com/download
+
+3: Signup and create a account on GitHub
+	https://github.com
+
+Open the Git bash terminal 
+
+4: Add your github email and username to git 
+	git config --global user.email "yourGitHub@email.com"
+		$git config --global user.email "emailanilkumarm@gmail.com"
+	git config --global user.name "yourGitHubusername"
+		 $git config --global user.name "cubeiplkumar"
+5: Open the git hub and create one repository
+		and copy the repository url
+		https://github.com/cubeiplKumar/samplerepo.git
+
+6:   git clone <copy the repo url from github>
+ 	git clone https://github.com/cubeiplKumar/samplerepo.git
+ 
+7:  India@LAPTOP-VODHAM22 MINGW64 ~/desktop/samplerepo (main)
+
+8: Now add some files into this folder
+	$touch test.txt
+	$git status
+	(here it will show the new file in red color)
+	$git add test.txt
+	( after adding the files, now check the status again)
+
+	[Optional:  to add multiple files
+	$git add -A  ]
+
+	$git status
+	(now, files are visible in green color, which indicates that files are added successfully)
+	$git commit -m "added new file test.txt"
+
+	(Now open the git hub and check the new created repository and you don't find any files are reflected because still we have not pushed the files into remote repository)
+
+step9: to check the log
+	$git log
+step10. to check the files in local repository
+	$git show <commit id>
+	$git show 8e7f79a1429f474feb3a79b0312479fdc63d6503
+
+Step11:  git push -u origin main
+___________________________________________________________________
+
+The last basic configuration command will let you view your Git configurations. Running this command is the same as asking for a copy of your contract:
+$ git config --list
+
+
+
+to check the latest logs
+
+$git log -n
+  git log -2
+
+to check the logs in shortcut , i.e it displays only ids of the commits.
+
+$git log --oneline
+
+
+To check the logs of different developers who commit the code into the repository
+$git log --author=<devreponame>
+$ git log --author=cubeiplkumar
+
+===========================
+
