@@ -1,0 +1,87 @@
+
+Branches and Merging
+
+One of the most important features of Git like many VCS is the Branching feature which enables us to open a new channel for a specific set of changes like a bug fix, new feature implementation or an experiment without interfering with the mainstream or parallel changes.
+
+In order to develop quality software, we need to be able to track all changes and reverse them if necessary. Version control systems fill that role by tracking project history and helping to merge changes made by multiple people. They greatly speed up work and give us the ability to find bugs more easily.
+
+Moreover, working in distributed teams is possible mainly thanks to these tools. They enable several people to work on different parts of a project at the same time and later join their results into a single product
+Branches in Git are nothing but pointers to a specific commit. Git generally prefers to keep its branches as lightweight as possible.
+
+
+There are basically two types of branches 
+	1. local branches 
+	2. remote tracking branches.
+
+A local branch is just another path of your working tree. On the other hand, remote tracking branches have special purposes. Some of them are:
+
+    -They link your work from the local repository to the work on central/remote repository.
+    -They automatically detect which remote branches to get changes from, when you use git pull.
+
+When we create a new branch it originates from the master branch itself.
+Since there is no storage/memory overhead with making many branches, 
+it is easier to logically divide up your work rather than have big chunky branches.
+it always portable to use the branches for your work.
+
+
+1. first checkout the project files from the github using "git clone"
+	c:\users\desktop\$git clone <repository url>
+	c:\users\desktop\ $git clone https://github.com/cubeiplKumar/masterrepo1.git
+
+		or
+	  c:\users\desktop\git pull <repository url>
+	  c:\users\desktop\ $git pull https://github.com/cubeiplKumar/masterrepo1.git
+
+
+
+ 2 : Create new branch
+	c:\user\desktop\masterrepo1\ $git branch “branch name” 
+	c:\user\desktop\masterrepo1\$git branch development
+
+2.1 To list out the list of branches including the SHA-1 hashes and commit subjects 
+      that these branches currently point to
+	c:\user\desktop\masterrepo1\$ git branch -a -v
+
+3 : Checkout  into new branch (i.e into development)
+	c:\user\desktop\masterrepo1\$git checkout “branch name” 
+	c:\user\desktop\masterrepo1\$git checkout development
+
+	Now you will change to new branch , add some new files into the new branch.
+	add the files, commit 
+	-c:\user\desktop\masterrepo1\$touch new.txt
+	-c:\user\desktop\masterrepo1\$git add new.txt
+	-c:\user\desktop\masterrepo1\$git commit -m "added new file"
+	-c:\user\desktop\masterrepo1\$git push -u origin development
+      (if you check it in github online, you will not see the new.txt file in the development repository)
+
+4 :  Before merging the branch into master, checkout into master
+	c:\user\desktop\masterrepo1\$git checkout master
+	Merge new branch in master branch 
+	git merge “branch name” 
+	syntax:c:\user\desktop\masterrepo1\git merge <branchname>
+	c:\user\desktop\masterrepo1\git merge development
+	c:\user\desktop\masterrepo1\git push - u origin master
+
+5 : Delete branch 
+	$git branch -d  <branchname>    		 — delete from local 
+	$git branch -d development
+	$git push origin - -delete <branch name>          — delete from remote 
+	$git push origin - - delete development
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
