@@ -1,0 +1,136 @@
+git diff
+
+command shows the file differences which are not yet staged
+
+  step1: modify any file before moving into commit the changes into local area
+	check the diff
+
+India@LAPTOP-VODHAM22 MINGW64 ~/desktop/myclass (master)
+$ git diff --base test1.txt
+
+
+--------------------
+git reset
+
+git reset [file]  
+
+This command unstages the file, but it preserves the file contents
+
+  India@LAPTOP-VODHAM22 MINGW64 ~/desktop/myclass (master)
+$ cat >>test1.txt
+second commit changes
+$ git add .
+$ git commit -m "second commit"
+$ git log
+
+This command undoes all the commits after the specified commit and preserves the changes locally.
+This command discards all history and goes back to the specified commit.
+$git reset --hard <commitid>
+$ git reset --hard 7f7aa6ee815305114699a9661f125c7fd6df1877
+
+============
+git rm
+
+ git rm <filename>  
+
+This command deletes the file from your working directory and stages the deletion.
+
+India@LAPTOP-VODHAM22 MINGW64 ~/desktop/myclass (master)
+$ git rm showfile
+
+to get that file back to working directory
+
+git reset --hard <commitid>
+================
+git show
+
+Usage: git show [commit-id]  
+
+This command shows the metadata and content changes of the specified commit.
+$ git show 30b2bf47055d462d458c5d9f45784fe0fd96408d
+
+==================
+
+Show the list of commits in one line format:
+
+git log --oneline
+=================
+git add *  
+
+This command adds one or more to the staging area.
+=================================================
+
+#git branch -r
+
+==============================
+
+#git fetch origin
+
+When downloading content from a remote repo, git pull and git fetch commands are available to accomplish the task. You can consider git fetch the 'safe' version of the two commands. It will download the remote content but not update your local repo's working state, leaving your current work intact.
+
+git pull is the more aggressive alternative; it will download the remote content for the active local branch and immediately execute git merge to create a merge commit for the new remote content. 
+
+git fetch  only downloads new data from a remote repository - but it doesn't integrate any of this new data into your working files.
+git fetch to know the changes done in the remote repo/branch since your last pull. This is useful to allow for checking before doing an actual pull, which could change files in your current branch and working copy (and potentially lose your changes, etc).
+#git fetch <remoteurl>
+
+#git fetch origin
+==================================================
+#git pull <repo_url>
+
+
+ to update your current HEAD branch with the latest changes from the remote server. 
+
+======================
+git stash
+              - temporarily stores all the modified tracked files.
+	-git stash temporarily shelves (or stashes) changes you've made to your working copy so you can work on something else, 
+	 and then come back and re-apply them later on.
+
+
+Modifies any file in the repository
+
+#cat >sample.txt
+
+#git stash save
+
+#git stash list
+
+need to save the temp.changes into the original file then
+
+#git stash pop
+
+add the file and commit
+
+#git add sample.txt
+
+#git commit -m "new changes merged into the original file by dev3"
+
+#git push -u origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
