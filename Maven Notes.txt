@@ -1,0 +1,71 @@
+Maven also allows the developer to automate the process of the creation of the initial folder structure for the Java application, performing    compilation, testing, packaging and deployment of the final product. 
+
+ It is implemented in Java which makes it platform-independent. 
+ This is the reason nowadays, Apache Maven is gaining more popularity than other build tools.
+
+
+Maven 
+	-Maven is a application build tool , which helps to build an java application.
+	-Maven is a powerful project management tool that is based on POM (project object model).
+	- It is used for projects build, dependency and documentation.
+	-To build java application, we use many third party build tools. maven is one of them.
+	- It simplifies the build process like ANT. But it is too  advanced than ANT.
+	- Maven make the day-to-day work of Java developers easier and generally help with the comprehension of any Java-based project.
+	- Apache Maven is a software build tool just like Apache Ant but Maven has some advanced features which in addition to providing software 	                  build, support the developer at the whole process of a software project.
+	- A typical build tool generally helps with compilation of source code, running the test cases and packaging the result into JAR files.
+
+Maven Does:
+	-easily build a project using maven.
+	-add jars and other dependencies of the project easily using the help of maven.
+	-Maven is very helpful for a project while updating central repository of JARs and other dependencies. 
+	-With the help of Maven we can build any number of projects into output types like the JAR, WAR etc without doing any scripting.
+	-Using maven we can easily integrate our project with source control system (such as Subversion or Git).
+
+	    Compilation of Source Code
+  	  Running Tests (unit tests and functional tests)
+    	Packaging the results into JAR’s,WAR’s,RPM’s,etc..
+   	 Upload the packages to remote repo’s (Nexus,Artifactory)
+
+
+Types of Maven Repositories :
+	1. Local Repository
+	2. Central Repository
+	3. Remote Repository
+
+
+
+  Maven Core Concepts:
+
+  1. POM(Project Object Model): 
+
+	It is the fundamental unit of work with Maven.
+	It is an XML file that contains information about the project and configuration details used by Maven to build the project. 
+	It contains default values for most projects.
+	When executing a goal or a task, Maven looks for POM in the current directory, gets the needed information and executes the goal/task
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
