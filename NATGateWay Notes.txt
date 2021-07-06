@@ -1,0 +1,163 @@
+NAT Gateway
+-----
+Network Address Translation (NAT) gateway to enable instances in a private subnet to connect to the internet or other AWS services
+
+NAT Gateway is a highly available AWS managed service that makes it easy to connect to the Internet from instances within a private subnet in an Amazon Virtual Private Cloud (Amazon VPC).
+
+
+Public Subnet   = Subnets which are connected to IGW(Internet Gateway) directly is  a Public Subnet.
+Private Subnet = Subnets which are not connected to IGW(Internet Gateway) directly is  a Private Subnet.
+
+Steps:
+=====
+  	
+1. Open the Subnets and select the Routing  Table name from it " AWS-CLASSROOM-RTB".
+	
+    - Open the Routing Table and copy the "AWS-CLASSROOM-RTB" in the filter and now check the Routes. 
+       If you can observe here, all the three subnets are associated with this  routing 
+      "AWS-CLASSROOM-RTB", which means it is Public Subnet.
+    -All the 3 subnets are directly connecting to the IGW through the Routing Table.
+	
+     -Create new Subnet called as "AWS-CLASSROOM-Database" and give IP range as 10.7.21.0/24
+	Name=AWS-CLASSROOM-Database
+	VPC= AWS-CLASSROOM
+	Avail.zone=us-east-1a
+	IPv4=10.7.21.0/24
+
+(Note: Here we are not associate this subnet "AWS-CLASSROOM-Database" to the Routing table , because we are here to show the difference between public and private subnets).
+	(Check Image of VPC image1)
+
+2. Enable Public IP assigning on AWS-CLASSROOM-Database
+      -Select the subnet "AWS-CLASSROOM-Database",  Rightclick Modify auto-assign IP and --> check the bo "Enable auto-assign public IPv4 address"
+
+
+3. Deploy two instances, one in Subnet-1(Public) and other in AWS-CLASSROOM-Database(Private)
+	Goto EC2
+	 - Launch Two instances here one is Public and other is Private.
+	 - "PublicServer" and "DBServer"
+	(Note:publicserver ipv4=10.7.1.100 and DBserver IPv4=10.7.21.100)
+
+	-Open the command prompt and ping the public ip 
+		IPv4 Public IP =18.234.190.179  
+		of "PublicServer" and check. We can get the response from it.
+
+	-Open SSH and connect to the "publicserver".
+
+	-After launching the DBServer machine(privateserver), copy the private ip and check in the command prompt.
+                 It should not connect as of now.it throws an error "Request timeout" .
+                  Because we didn't launch the NAT Server here,it is coming from outside through the IGW but, it  don't 
+                  know where to go,  here internet packet is dropping.
+
+
+
+4. Check the communication for Public instance and DB Instance.
+	- in SSH, check the connectivity between "publicserver" and "DBServer"
+ 	-copy the public IPV4 of "DBServer"
+	 [root@ip-10-4-1-100 ~]# ping 3.85.108.246
+	-Connectivity is not successful
+
+5. Deploy a NAT Gateway. While deploying make sure you choose public subnet.
+	 -NAT gateway allows  Only Outbound
+	 -IGW allows both inbound and outbound
+
+	VPCs--->NAT Gateways  -> Create NAT Gateway---> Copy the  subnet1a id from the 
+                  "AWS-CLASSROOM-Subnet1"--->
+	 (Need to add the ElasticIP here) click on "create NewEIP" New EIP (100.24.184.109) creation successful.
+	
+
+6. Create new routing table for "AWS-CLASSROOM-Database" and add routing towards NAT Gateway.
+	-Route Tables
+	   -Create RouteTable --> Provide the
+				NameTag=  "AWS-CLASSROOM-NAT"
+				VPC= select the AWS-CLASSROOM
+	- Need to attach the subnets to it.
+		subnetAssociations=select only "AWS-CLASSROOM-Database" subnet.
+		Route
+			Destination=0.0.0.0/0
+			Target = select the nat.
+	(Note: if we select the igw here, this subnet also becomes public subnet,so need to select the NAT)
+
+	Now, EC2
+	    -Open DBServer machine and connect through SSH(putty) using public key.Actually now with this step ,
+                      I should get error "connection timeout "
+	    -How to connect to the DBServer, then take the duplicate session of ssh now, and through ssh and 
+                      DBserver PrivateIP. Still we get the error here.
+
+		[root@ip-10-4-1-100 ~]# ssh ec2-user@10.7.21.100
+	
+	 - To connect we need to use the key
+		Open the EC2Machine , and Vim Editor
+			-[root@ip-10-4-1-100 ~]# vi classroom-kp.pem
+			-copy the classroom-kp.pem file from where the save location and paste in 
+			"classroom-kp.pem" file, save and exit
+			-Now try again, 
+				[root@ip-10-4-1-100 ~]# ssh -i classroom-kp.pem ec2-user@10.7.21.100
+			-got error again, due to security.
+			-change the permission of file
+				[root@ip-10-4-1-100 ~]# chmod 400 classroom-kp.pem
+				[root@ip-10-4-1-100 ~]# ll
+			-Now, try to connect 
+				[root@ip-10-4-1-100 ~]# ssh -i classroom-kp.pem ec2-user@10.7.21.100
+			-Successful this time
+				[ec2-user@ip-10.7.21.100 ~]$ sudo su -
+			-check the internet connectivity fromt here
+				[root@ip-10.7.21.100 ~]# ping www.google.com
+
+	
+	Now, I need to change the Route table for the AWS-CLASSROOM-NAT, route and then check the ping again.
+			Destination=10.0.0.0/8
+			Target = select the nat.
+			[root@ip-10.7.21.100 ~]# ping www.google.com 
+			Now, internet is not coming through this. Again  change it to previous settings in routing table
+			Destination=0.0.0.0/0
+			Target = select the nat
+
+		Now, again
+		[root@ip-10.7.21.100 ~]# ping www.google.com 
+		packets are coming through this NAT. Now, to prove that, internet is coming through the NAT only again make following changes.
+		Route
+			Destination=0.0.0.0/0
+			Target=select the NAT
+
+
+
+InterviewQuestion: I have the Public IP for the Database server but still , I could not connect to the EC2 machine  why?
+
+		(Ans: If it is a Database Server, we should have NAT server to connect it.Because it is for the  security)
+
+Why does a AWS NAT Gateway require an ElasticIP?
+
+EIP is required because that is the way the NAT Gateway feature was engineered.
+
+It wouldn't make sense to have a dynamic address on a NAT device -- if the address changed, that would be guaranteed to break any sessions in progress... 
+and the only way to allocate a static address is by allocating an Elastic IP address (EIP).
+
+
+
+
+
+7. SSH to public Instance and from there SSH in to DB1 Instance and ping www.google.com and it should be reachable.
+
+8. Prove the traffic is going through NAT Gateway.
+
+
+
+Important Note:
+
+NATGateway is not free, it is going to be billed. So, once you complete your practice, need to delete it.
+Before this, need to terminate the EC2 machines.
+1. UnderVPCs--->NAT Gateways-->RightClick Delete NAT
+2. Even after delete , "Elastic IPs" are using the sources, so, once NAT is deleted.
+3. VPCs---> ElasticIPs-> R.Click and ReleaseIPs.
+With the above steps, NAT is completely deleted.
+
+
+
+
+
+
+
+
+
+
+
