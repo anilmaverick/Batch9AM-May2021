@@ -1,0 +1,93 @@
+Class2-
+Creating Another VPC, to work with Peering Concept for the class3
+
+VPC Steps
+
+1. Decide on VPC name and create a new VPC. For this class VPC is "NewPeeringVPC" , VPC and IP Address space we are going to use is
+	192.168.0.0/16 => 65000 IPs
+-Now Enable DNS Hostname
+		select your vpc - Rightclick- select Enable DNS hostname-> default it is no, change it to "yes"
+
+2. Create Three subnets in NewPeeringVpc26
+	NewPeeringVPC-Subnet1 - 192.168.4.0/24
+	NewPeeringVPC-Subnet2 - 192.168.5.0/24
+	NewPeeringVPC-Subnet3 - 192.168.6.0/24
+
+-  Enable Automatic IP Assignment
+
+	select the  "subnets" we have created ->  Actions ->R.Click "Modify  Auto-Assign IP"-> check the  "Enable auto-assign public IPv4 address"
+	do the same for the above created 3 subnets
+
+3. Create internet gateway and attach it to VPC. IGW name is NewPeeringVPC-IGW
+
+4. Create new routing table for NewPeeringVPC and associate subnets to it. ignore the default routing table.
+     Routing Table name= NewPeeringVPC-RTB
+
+	- Add the subnets to this Routing Table
+		subnet Associations---> edit and add the subnets to it.
+	- Need to add the routing now,
+	    - by default we have the local route with "192.168.0.0/16", it means any ip address starts with 192.168 is considered as "Local".
+	    - if we want to connect to the gateway, use another ip range "0.0.0.0/0"(note:if you come across ip with 0.0.0.0/0 means anywhere).	
+	      we can add the new ip address here.
+	(Note:CIDR (Classes Inter Domain Routing))
+
+5. Add routes in the routing table towards Internet Gateway.
+
+6. Create a security group NewPeeringVPC-SG and allow all in bound ports.
+
+	Open Browser: Search "Windows update Firewall Ports"
+	https://technet.microsoft.com/en-in/library/bb693717.aspx
+	copy the following firewall and find the ip address of the below:
+		http://windowsupdate.microsoft.com
+	to find the ipaddress of the windows firewall
+	open command prompt-> 
+		C:\Users\India>nslookup http://windowsupdate.microsoft.com
+		Server:  www.routerlogin.com
+		Address:  192.168.1.1
+
+
+- Inbound and Outbound rules
+	     Inbound means from " outside to inside" (it is very critical should be more careful when you provide the resources)
+	     Outbound " from inside to outside"
+
+	-inbound  -> 
+		Type: ALL TRAFFIC
+		Protocol: ALL
+		PortRange: ALL
+		Destination:0.0.0.0/0
+
+(with the above steps VPC is created)
+
+
+7. Create a Key-Pair which create Public and Private Keys. AWS will have public Key and you will be given private key. We eed to use the private key to login to the instance.
+
+	Click on EC2 Services
+	Under 'Network and Security' - click on KeyPairs- (provide the key pair name as 'NewPeeringVPC05' - Create Key pair
+	(in the background , it will create 'public key and private key'- Amazon which stores the public key and private key is giving to us
+	
+
+8. Deploy a Linux t2.micro instance and connecct to it using private key u have created.
+	Amazon  Linux =8GB, 512MB, Free deployes in less than a min.
+	Linux Server : I need SSH to connect to Linux Server, Port 22, For Windows RDP Port 3389. Port 80 -HTTP
+
+	pem - private key
+	ppk  - private key
+
+	Key paris consists of Public Key(Lock) and Private Key(Key).
+
+ Primary IP
+    192.168.4.100
+
+------------------------
+-Open the puttygen and convert the "NewPeering-KP.pem" file into NewPeering-KP.ppk"
+- Open the Putty and 
+	ec2-user@ec2-54-208-67-246.compute-1.amazonaws.com
+	ssh---> Auth--->Add .ppk file and "Open"
+
+- add the password "aws@2078"
+- Now you login into the instance
+To login to root , type the following command
+- [ec2-user@ip-10-1-1-100 ~]$ sudo su -
+
+-[root@ip-10-1-1-100 ~]#
+

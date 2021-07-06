@@ -1,0 +1,127 @@
+
+Connecting two VPCs are called "Peering".
+
+1. After creating another VPC(PeeringVPC) completed.
+
+2. Go to Your VPC's page and copy the url 
+
+	https://console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:
+
+3. Open another window in the browser and paste , change the us-east-2(Ohio region)
+	https://console.aws.amazon.com/vpc/home?region=us-east-2#vpcs:
+	(By Default, one vpc is there we are using this as Ohio-BranchVPC)
+
+4. My Task is first , I would like establish peering between 
+	- AWS-CLASSROOM VPC & PEERINGVPC (in the same region)
+     Next I would like to establish peering between 
+	-AWS-CLASSROOM VPC  & OHIO BRANCH VPC
+	(see the image)
+
+5. NorthVirginia( window)
+	-EC2 Launch one server"classroomServer" and place under  AWS-CLASSROOM VPC
+	-In the similar way create another server "NewPeering05Server" under NewPeeringVpc05
+
+6. Now , OHIO(Window)
+	-Need to create an server here as well, but here we didn't find any key-pair.As we know that Key-pair is region specific.
+	-Need to import the key pair from N.virginia into Ohio.
+	-click on "import KeyPair", and browse for the .pem file which we have downloaded at the time of 	  launching the machine, but it
+	  throws an error.Need to follow the following way to import the keypair.
+	 
+	steps:
+		-now connect to AWS-CLASSROOM in (N.Virginia region) using SSH.
+		-once connected, then type
+			[ec2-user@ip-10-1-1-100 ~]$ ec2-metadata
+		-now copy the following code from it
+			 ssh-rsa to AWS-CLASSROOM
+		-Now, comeback to Ohio Region window and click on "Import Key Pair" and paste the "ssh-rsa 	                   complete key" and click on import key.with this
+		  the key which is in N.virginia can be used in Ohio region as well.
+
+    6.1 Now, launch the EC2 Server in Ohio as well.
+
+7. N.Virginia(Region)
+	  -Open SSH and connect to the AWSServer
+	  -Open SSH and Connect to the PeeringServer
+
+8. Ohio(Region)server
+	-Open SSH and connect to the OhioServer
+
+9. By default , no servers were having the communication between the VPCs.
+	(show the image)
+	-need to check now, the communication between the servers.
+	  from Ohioserver to N.Virginia Server
+		[root@ip-172-31-1-100 ~]# ping 10.1.1.100
+		  PING 10.1.1.100 (10.1.1.100) 56(84) bytes of data. (no communication as of now)
+	-No servers were communicating between the VPCs.So, now we need to establish the Peering between VPCs
+
+===============================================================================
+10. Establishing the Peering Connections (within the same region)
+	Under the VPC services we have the "PeeringConnections"
+	Note: When we establishing peering connections the CIDR ip address should not have same IPaddress, if 	           same address are there then
+	           it will throws an error
+		"A Peering Connection cannot be created between 2 VPCs that have overlapping CIDRs. Please 		  select 2 VPCs which have distinct CIDRs"
+	-Now I am establishing the peering connections within the same region.(AWS25OCTVPC and PeeringVPC 	  in N.Virginia)
+	-  Provide the relavant VPCs name which we want to connect.
+	-once created then goto actions--> Accept Request-->Accept Peering VPC Connection Request--> click on 	  "Yes,Accept"
+
+11. Modify Routing table (N.Virginia)
+	-AWS-CLASSROOM-RTB
+		-Routes TAB 
+		Edit=AddAnotherRoute->192.168.4.0/24 and select "AWS-CLASSROOMtoPeeringVPC".
+	Similarly,
+	-PeeringVPC-RTB
+		Routes TAB 
+			Edit=AddAnotherRoute->10.1.1.0/24 and select "AWS-CLASSROOM toPeeringVPC".
+
+12. Now, open the two session on SSH, 
+		[root@ip-10-1-1-100 ~]# ping 192.168.1.100
+
+		other window
+		[root@ip-192-168-1-100 ~]# ping 10.1.1.100
+
+==================================================
+13. Now Establishing the peering connection between North Virginia and Ohio i.e inter connection
+
+	Create Peering Connection (N.Virginia)
+		
+	Peering connection name tag=AWS-CLASSROOMVPC-to-OhioPeering
+	Select VPC =AWS-25AUG
+	Select another VPC to peer with
+		Region=Another Region
+			Ohio(us-east-2)
+	VPC Acceptor= go to the ohio region and select the VPC id and paste it here.
+		VPCid=	vpc-5da79535
+	click on "Create a PeeringConnection"
+
+14. After creating the peering connection, in Actions--->Accept request is grey out , because "pending acceptance" to be done to the region where we requested for 
+	i.e. need to go Ohio Region, peering connections  there need to "Accept Request "
+
+15. Ohio Region
+	modify routing table 
+		"add another route" =10.1.4.0/24"
+	save 
+16. N.Virginia
+
+	Routing Table
+		
+		another route=172.31.13.0/20
+		select="AWS-CLASSROOM VPCtoOhioPeering"
+	save
+		
+		
+17. Now check in SSHs 
+	[root@ip-10-1-1-100 ~]# ping 172.31.13.100
+	
+	from 
+	[root@ip-172.31.1.100 ~]# ping 10-1-4-100
+
+Peering is done.
+
+
+
+
+
+
+
+
+
+

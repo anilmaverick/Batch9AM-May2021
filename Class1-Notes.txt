@@ -1,0 +1,137 @@
+AWS
+Microsoft Azure
+Google Private Cloud
+IBMCloud
+Softlayer
+DigitalOcean
+________________________________________
+1. First Create an Free-Tier Account
+  - AWS Trail Account
+2. Provide the Credit/Debit Card details to create the account
+	- Once you provided the above details, Min. Rs.2/- will be deducted from your account, if you are in USA then it deducted 1$.
+	- When Rs.2 is deducted from your account then only your AWS account is activated.
+3. Once your account is activated and login to your account.(optional step)
+	- It is advisable to activate the MFA(Multi-Factor Authentication). Before enabling the MFA , need to install "google authenticator" in your 	   mobile from Playstore.
+	- To activate MFA
+		- MyAccount -->MySecurity Credentials  -->Click on MFA(Multi-Factor Authentication) -> Enable
+
+4. Check the AWS Global Infrastructure
+	-Open Browser "AWS global infrastructure"
+
+ (Explain about the Regions and availability zones, by drawing a pictures here)
+
+
+_____________________________________________________________________________________________
+Discussing the Networking
+IP Addresses
+
+- To Communicate one system to another system globally, it requires "ipaddress"
+- IPv4 = 32-bits  (IPVersion4)
+- IPv6= 128-bits
+
+Any IPAddress globally should fall in the range between
+	- 1.0.0.0  to 255.255.255.255
+
+-Open the command prompt
+	- ping www.google.com
+	- ping yahoo.com
+		check the ip address
+ip address classes division
+====================
+http://vlsmcalc.net/ipclasses.php
+
+Class A : 1 .0.0.0      to    126.255.255.255(127.0.0.1 it is loopback)
+
+(Note: 127.0. 0.1 is the loopback Internet protocol (IP) address also referred to as the localhost.
+            The address is used to establish an IP connection to the same machine or computer 
+            being used by the end-user)
+
+Class B : 128.0.0.0   to    191.255.255.255
+Class C : 192.0.0.0   to    223.255.255.255
+=======================================================================
+Class D : 224.0.0.0   to     239.255.255.255
+Class E : 240.0.0.0    to    255.255.255.255
+
+Note: Class D & E we 're not using because these are used for the purpose of Research & Development , MultiCast Purpose
+=======================================================================
+
+
+-Any organization wants to provide the ips to their employees, suppose if they have 1000 employee, we need to provide 1000 ips. When every organization is using the ip addresses like 
+this, then soon the total ip address were come to an end.
+-Scientists invented the private ip addresses to save the ipaddresses.
+
+
+Private IP Addresses
+(Private IPs are used to communicate internally, so the following IPs are used to in offices to create IPs internally.)
+Class A : 10.0.0.0
+Class B : 172.16.0.0 - 172.31.0.0 	
+Class C: 192.168.0.0
+(RollNo. Example)
+
+Ramakrishna =35
+Shranvan	     =36
+Kalyan	     =37
+
+Hallticket No. 1234567463
+
+-- Other than the above ip addresses are called public ip addresses
+-  The process of converting your private ip address to public ip address through the internet gateway is called NAT(Network Address Translation)
+
+
+-To check your public ip address
+	-open google and "what is my ip"
+	103.232.128.16
+- Public IPs are changing regularly i.e public IPs of your device is changing everyday. If you want the permanent "public ips" then need to purchase it from ISP
+
+_____________________________________________________________________________________________
+Subnets
+	- Dividing the network is called subnet
+	- Any IP 192.168.1.0 i.e., id ends with '0' is called Network ID
+	- 192.168.1.255 is Broadcast ID
+
+	- Usually our IP Address never end with 0.
+	- Our IP Addresses will fall between 192.168.1.1 to 254
+
+
+   192.168.1.0/24
+   
+    255.255.255.0
+       8    8     8    8  (But here, 8*3=24) for 0 there is no value.
+
+ if 192.168.0.0/16
+     255.255.0.0
+       8      8          8*2=16
+
+    
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

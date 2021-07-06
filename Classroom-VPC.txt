@@ -1,0 +1,151 @@
+Class2-
+
+
+1. Draw a Pic MsPaint of "N.Virginia" availability Zones
+     - When we keep servers in different zones.
+	-Default both servers can communicate without any configuration on switches,routes in AWS
+	-No need for the network team to configure the network configuration,switches, routers etc.
+	-But, I have two issues here...
+		- Security Breach between the two zones, as both servers can easily communicate eachother, so there is no privacy/security 
+		-if Server1 ip address =10.1.1.50, then we need to give the server2 IP Address=10.1.1.51 but not 10.1.1.50 because it will overlap.
+		
+1.1  	- VPC is region dependant, i.e we cannot move vpc from one region to another region.
+	-  Only one "Internet Gateway" to one VPC.
+
+(Network Books: SDN and VXLAN is working behind VPCs communication)
+=======================================================================
+ VPC Steps
+- Virtual Private Cloud
+- By Default we can create 5 VPCs in our free-tier account after that we can extend it.
+
+1. Decide on VPC name and create a new VPC. For this class VPC is "AWS-CLASSROOM" VPC and IP Address range we are going to use
+	10.7.0.0/16 => 65000 IPs
+
+	-Now Enable DNS Hostname
+		select your vpc - Rightclick- select Enable DNS hostname-> default it is no, change it to "yes"
+
+2. Create Three subnets in AWS-CLASSROOM
+
+	AWS-CLASSROOM-Subnet1 - 10.7.1.0/24
+	AWS-CLASSROOM-Subnet2 - 10.7.2.0/24
+	AWS-CLASSROOM-Subnet3 - 10.7.3.0/24
+
+	-  Enable Automatic IP Assignment
+		(Actions -> Modify Auto-Assign IP Settings-> 
+			Auto-assign IPv4  ---->Enable auto-assign public IPv4 address
+
+	(Note: if we are not enable this Auto-IP assign, then when you deploy a machine, public IP is not going to create).
+
+3. Create internet gateway and attach it to VPC. IGW name is AWS-CLASSROOM-IGW
+	-After creating the AWS-CLASSROOM-IGW , internet gateway by default it is in "detached mode", 
+                   need to select the IGW and attach the VPCs to it.
+			(select IGW ---> Actions--->attach vpc)
+	-IGW is one-to-one relation. One Internet Gateway can attach/assign to only one VPC
+	- Without internet gateway we cannot connect to the outside network from servers which is inside VPC.
+	- VPCs are region dependant.i.e , we can't move the VPC which created in N.Virginia to Ohio Region.
+                    But we can create the VPC with the same name in Ohio Region as well.
+	- One Internet Gateway per one VPC	
+
+4. Create new routing table for AWS-CLASSROOM and associate subnets to it. ignore the default routing table.
+     Routing Table name= AWS-CLASSROOM-RTB
+
+	- Add the subnets to this Routing Table
+		subnet Associations---> edit and add the subnets to it.
+	- Need to add the routing now,
+	    - by default we have the local route with "10.7.0.0/16", it means any ip address starts with 10.7 is considered as "Local".
+	    - if we want to connect to the gateway, use another ip range "0.0.0.0/0"(note:if you come across ip with 0.0.0.0/0 means anywhere).	
+	      we can add the new ip address here.
+	(Note:CIDR (Classes Inter Domain Routing))
+
+5. Add routes in the routing table towards Internet Gateway.
+
+6. Create a security group AWS-CLASSROOM-SG        and allow all in bound ports.
+	- Security group is nothing but firewall
+	-Internet Traffic can be control using security groups.
+
+
+	Open Browser: Search "Windows update Firewall Ports"
+	https://technet.microsoft.com/en-in/library/bb693717.aspx
+	copy the following firewall and find the ip address of the below:
+		http://windowsupdate.microsoft.com
+	to find the ipaddress of the windows firewall
+	open command prompt-> 
+		C:\Users\India>nslookup windowsupdate.microsoft.com
+		Server:  www.routerlogin.com
+		Address:  192.168.1.1
+
+
+
+	-    Inbound and Outbound rules
+	     Inbound means from " outside to inside" 
+	     (it is very critical should be more careful when you provide the resources)
+	     Outbound " from inside to outside"
+
+	-Get into the "inbound tab"
+		-Edit
+		    Type="ALLTraffic"
+		     Protocol=ALL
+		     PortRange=ALL
+		     Source=0.0.0.0/0
+		Save
+
+(with the above steps VPC Configuration is completed here)
+
+===========================================================================================================
+
+7. Create a Key-Pair which create Public and Private Keys. AWS will have public Key and you will be given private key. We need to use the private key to login to the instance.
+
+	Click on EC2 Services
+	==================
+
+	Under 'Network and Security' - click on KeyPairs- (provide the key pair name as 'geethikainfotech' - Create Key pair
+	(in the background , it will create 'public key and private key'- Amazon which stores the public key and private key is giving to us
+	
+
+8. Deploy a Linux t2.micro instance and connecct to it using private key u have created.
+
+	Amazon  Linux =8GB, 512MB, Free deployes in less than a min.
+	Linux Server : I need SSH to connect to Linux SErver, Port 22, For Windows RDP Port 3389. Port 80 -HTTP
+
+	pem - private key
+	ppk  - private key
+
+	Key paris consists of Public Key(Lock) and Private Key(Key).
+
+When you are launching the instance,
+	under configure  Instance details
+		Provide your Network,subnet details from the drop down list
+	Network Interfaces
+		Primary IP=10.1.1.100
+
+
+------------------------
+-Open the puttygen and convert the "AWS-CLASSROOM.pem" file into AWS-CLASSROOM.ppk"
+
+	puttygen
+		- Converstions--->import key--> Keypassphrase --> 
+		(we can create the password for this, so that even if you loss the .ppk file with this we can login into your machine)
+		click on 'save private key'
+		need to provide "keypassphrase=test123"
+
+
+- Open the Putty and 
+	ec2-user@ec2-54-208-67-246.compute-1.amazonaws.com
+	ssh---> Auth--->Add .ppk file and "Open"
+
+- add the password "test123"
+- Now you login into the instance
+To login to root , type the following command
+- [ec2-user@ip-10-1-1-100 ~]$ sudo su -
+
+-[root@ip-10-1-1-100 ~]#
+
+
+====================================================================================
+
+
+
+No Bill for VPCs, Routing Table
+
+After practicing
+    t2.micro machine , for the safe side you can terminate.
